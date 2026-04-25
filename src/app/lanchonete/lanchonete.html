@@ -1,0 +1,51 @@
+<div class="container">
+    <h1>🍔 Pedido da Lanchonete</h1>
+
+    <div class="form-group">
+        <label>Nome do Produto</label>
+        <input type="text" [(ngModel)]="nomeProduto" placeholder="Ex: Hambúrguer">
+    </div>
+
+    <div class="form-group">
+        <label>Quantidade</label>
+        <input type="number" [(ngModel)]="quantidade">
+    </div>
+
+    <div class="form-group">
+        <label>Preço Unitário (R$)</label>
+        <input type="number" [(ngModel)]="precoUnitario">
+    </div>
+
+    <div class="form-group">
+        <label for="pagamento">Forma de pagamento:</label>
+
+        <select id="pagamento" [(ngModel)]="formaPagamento">
+            <option value="" disabled selected>Selecione...</option>
+            <option value="Pix">Pix</option>
+            <option value="Crédito">Cartão de Crédito</option>
+        </select>
+    </div>
+
+    <button (click)=" apresentarLanchonete()">Calcular Pedido</button>
+
+    @if(calculoPedido !== null){
+    <div class="resultado">
+        <label for="">Valor original do pedido</label>
+        Total: R$ {{ calculoPedido.toFixed(2).replace(".", ",") }}
+    </div>
+    }
+
+    @if(formaPagamento !== null){
+    <div class="resultado">
+        <label for="">Forma de pagamento escolhida</label>
+        {{ formaPagamento }}
+    </div>
+    }
+
+    @if(valorFinal !== null){
+    <div class="resultado">
+        <label for="">Valor final</label>
+        Total: R$ {{valorFinal.toFixed(2).replace(".", ",")}}
+    </div>
+    }
+</div>

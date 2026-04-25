@@ -1,0 +1,53 @@
+<div class="container">
+  <h1>🚗 Controle de Abastecimento</h1>
+
+  <div class="form-group">
+    <label>Modelo do carro</label>
+    <input type="text" [(ngModel)]="modeloDoCarro" placeholder="Ex: Corolla">
+  </div>
+
+  <div class="form-group">
+    <label>Marca do carro</label>
+    <input type="text" [(ngModel)]="marcaDoCarro" placeholder="Ex: Toyota">
+  </div>
+
+  <div class="form-group">
+    <label>Quilometragem anterior</label>
+    <input type="number" [(ngModel)]="quilometragemAnterior">
+  </div>
+
+  <div class="form-group">
+    <label>Preço por litro (R$)</label>
+    <input type="number" [(ngModel)]="precoPorLitro">
+  </div>
+
+  <div class="form-group">
+    <label>Valor total do abastecimento (R$)</label>
+    <input type="number" [(ngModel)]="valorTotalAbastecimento">
+  </div>
+
+  <div class="form-group">
+    <label>Quilometragem atual</label>
+    <input type="number" [(ngModel)]="quilometragemAtual">
+  </div>
+
+  <button (click)="apresentarCarro()">Calcular</button>
+
+  @if(quantidadeLitroAbastecidos !== null){
+    <div class="resultado">
+    ⛽ Litros abastecidos: {{ quantidadeLitroAbastecidos.toFixed(2) }} <span>Litros</span>
+  </div>
+  }
+
+  @if(quilometrosRodados !== null){
+    <div class="resultado">
+        Quilômetros rodados: {{ quilometrosRodados }} <span>Km</span>
+    </div>
+  }
+
+  @if(media !== null){
+    <div class="resultado">
+        Média: {{ media }} <span>Km/L</span>
+    </div>
+  }
+</div>

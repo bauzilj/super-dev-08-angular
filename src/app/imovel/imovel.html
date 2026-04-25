@@ -16,11 +16,26 @@
             <button type="button" (click)="valorImovel()">Calcular valor do metro quadrado</button>
         </div>
 
-         @if(valorDoMetroQuadrado !== null){
-            <div class="form-group">
-                <p class="result-label">Valor do metro quadrado</p>
-                <p class="result-value">{{valorDoMetroQuadrado.toFixed(2).replace(".", ",")}}</p>
-            </div>
+        @if(valor !== null){
+        <div>
+            <p class="result-label">Valor do imóvel</p>
+            <p class="result-value">R${{valor.toFixed(2).replace(".", ",")}}</p>
+        </div>
         }
+
+        @if(quantidade !== null){
+        <div>
+            <p class="result-label">Quantidade de metros quadrados</p>
+            <p class="result-value">{{quantidade}} m²</p>
+        </div>
+        }
+
+        @if(valorDoMetroQuadrado !== null){
+        <div class="form-group">
+            <p class="result-label">Valor do metro quadrado</p>
+            <p class="result-value">R${{valorDoMetroQuadrado.toFixed(2).replace(".", ",")}}</p>
+        </div>
+        }
+
     </div>
 </div>
