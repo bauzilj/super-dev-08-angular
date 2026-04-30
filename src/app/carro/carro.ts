@@ -7,7 +7,7 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './carro.html',
   styleUrl: './carro.css',
 })
-export class Carro {
+export class CarroComponent {
   modeloDoCarro: string = "";
   marcaDoCarro: string = "";
   quilometragemAnterior: number | null = null;

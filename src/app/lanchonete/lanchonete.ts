@@ -9,7 +9,7 @@ import { CommonModule } from '@angular/common';
   templateUrl: './lanchonete.html',
   styleUrl: './lanchonete.css',
 })
-export class Lanchonete {
+export class LanchoneteComponent {
   nomeProduto: string = "";
   precoUnitario: number | null = null;
   quantidade: number | null = null;

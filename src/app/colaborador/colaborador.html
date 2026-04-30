@@ -1,0 +1,145 @@
+<div class="min-h-screen flex items-center justify-center bg-gray-100 p-6">
+    <div class="w-full max-w-2xl bg-white shadow-xl rounded-2xl p-8">
+
+        <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">
+            Cadastro de Colaborador
+        </h2>
+
+        <form class="space-y-4">
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Nome</label>
+                    <input type="text" name="nome" [(ngModel)]="colaborador.nome"
+                        class="mt-1 w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Data de Nascimento</label>
+                    <input type="date" name="dataNascimento" [(ngModel)]="colaborador.dataDeNascimento"
+                        class="mt-1 w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Valor Hora</label>
+                    <input type="number" step="0.01" name="valorHora" [(ngModel)]="colaborador.valorHora"
+                        class="mt-1 w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Quantidade de Horas</label>
+                    <input type="number" name="quantidadeHora" [(ngModel)]="colaborador.quantidadeHora"
+                        class="mt-1 w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Vale Refeição</label>
+                    <input type="number" step="0.01" name="valorRefeicao" [(ngModel)]="colaborador.valorValeRefeicao"
+                        class="mt-1 w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Vale Transporte</label>
+                    <input type="number" step="0.01" name="valeTransporte" [(ngModel)]="colaborador.valorValeTransporte"
+                        class="mt-1 w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none">
+                </div>
+
+                <div class="flex flex-col gap-2">
+                    <label for="plano-saude" class="text-sm font-semibold text-gray-700">
+                        Desconto plano de saúde
+                    </label>
+
+                    <select name="plano-saude" id="plano-saude" [(ngModel)]="colaborador.valorDescontoPlanoSaude" class="w-full px-4 py-3 rounded-xl border border-gray-300 bg-white text-gray-800 
+                     shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 
+                    focus:border-blue-500 transition duration-200">
+                        <option [ngValue]="300">R$ 300,00</option>
+                        <option [ngValue]="500">R$ 500,00</option>
+                        <option [ngValue]="700">R$ 700,00</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <button type="button" (click)="salvar()"
+                class="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 rounded-lg shadow">
+                Salvar
+            </button>
+
+        </form>
+
+        <!-- LISTA -->
+        <div class="mt-8">
+            <h3 class="text-lg font-semibold text-gray-700 mb-4">Colaboradores</h3>
+
+            @if(colaboradores.length === 0){
+            <p class="text-gray-500 text-center">Nenhum colaborador cadastrado</p>
+            } @else {
+            <div class="space-y-4">
+                @for (colaborador of colaboradores; track colaborador) {
+
+                <div
+                    class="border rounded-xl p-4 shadow-sm flex flex-col md:flex-row md:justify-between md:items-center">
+
+                    <div class="text-sm text-gray-700 space-y-1">
+                        <p><strong>Nome:</strong> {{colaborador.nome}}</p>
+                        <p><strong>Nascimento:</strong> {{colaborador.dataDeNascimento}}</p>
+                        <p><strong>Valor Hora:</strong> {{colaborador.valorHora |currency:'BRL'}}</p>
+                        <p><strong>quantidade de horas:</strong> {{colaborador.quantidadeHora}} Horas</p>
+                        <p><strong>Vale refeição:</strong>{{colaborador.valorValeRefeicao | currency:'BRL'}}</p>
+                        <p><strong>Vale transporte:</strong> {{colaborador.valorValeTransporte | currency:'BRL'}}</p>
+                        <p><strong>Desconto plano de saúde:</strong> {{colaborador.valorDescontoPlanoSaude
+                            |currency:'BRL'}}
+                        </p>
+                        <p class="text-sm text-gray-600">
+                            Salário Bruto:
+                            <span class="font-medium">
+                                {{ calcularSalarioBruto(colaborador) | currency:'BRL' }}
+                            </span>
+                        </p>
+
+                        <p class="text-sm text-red-500">
+                            IR:
+                            <span class="font-medium">
+                                {{ calcularIR(calcularSalarioBruto(colaborador)) | currency:'BRL' }}
+                            </span>
+                        </p>
+
+                        <p class="text-sm text-yellow-600">
+                            INSS:
+                            <span class="font-medium">
+                                {{ calcularINSS(calcularSalarioBruto(colaborador)) | currency:'BRL' }}
+                            </span>
+                        </p>
+
+                        <p class="text-sm text-green-600 font-semibold mt-2">
+                            Salário Líquido:
+                            {{ calcularSalarioLiquido(colaborador) | currency:'BRL' }}
+                        </p>
+
+                        <p class="text-sm text-gray-600 mt-2">
+                            <strong>Idade: </strong>{{ calcularIdade(colaborador.dataDeNascimento) }} anos
+                        </p>
+                    </div>
+
+                    <div class="flex gap-2 mt-4 md:mt-0">
+                        <button (click)="preencherCampoParaEditar(colaborador)"
+                            class="bg-yellow-400 hover:bg-yellow-500 text-white px-4 py-2 rounded-lg text-sm">
+                            Editar
+                        </button>
+
+                        <button (click)="deletar(colaborador)"
+                            class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg text-sm">
+                            Deletar
+                        </button>
+                    </div>
+
+                </div>
+
+                }
+            </div>
+            }
+        </div>
+
+    </div>
+</div>
